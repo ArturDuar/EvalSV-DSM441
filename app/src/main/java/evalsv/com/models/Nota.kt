@@ -1,8 +1,12 @@
 package evalsv.com.models
 
-class Nota (
-    val estudianteId: String = "",
-    val grado: String = "",
-    val materia: String = "",
-    val notaFinal: Double = 0.0
-)
+data class Nota(
+    var id: String? = "",
+    var estudianteId: String? = "",
+    var nombreEstudiante: String? = "",
+    var grado: String? = "",
+    var materia: String? = "",
+    var notaFinal: Double? = 0.0,
+) {
+    constructor() : this("", "", "", "", "", 0.0)
+}
