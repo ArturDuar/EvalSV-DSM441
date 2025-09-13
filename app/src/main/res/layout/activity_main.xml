@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/white_bg"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
@@ -26,104 +26,53 @@
         android:id="@+id/layout_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="25dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
         <!-- Primera columna -->
+
         <Button
-            android:id="@+id/btn1"
+            android:id="@+id/btnGestionarNotas"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:layout_marginTop="16dp"
             android:background="@drawable/button_rounded"
             android:gravity="start"
-            android:text="@string/registrar_estudiantes"
-            app:backgroundTint="@color/white"
+            android:text="@string/gestionar_notas"
             android:textColor="@color/purple_primary"
-            app:layout_constraintEnd_toStartOf="@+id/btnListarEstudiantes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/layout_menu"
-            app:layout_constraintWidth_percent="0.45" />
-
-        <Button
-            android:id="@+id/btnRegistrarNotas"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/button_rounded"
-            android:gravity="start"
-            android:text="@string/registrar_notas"
-            app:backgroundTint="@color/purple_secondary"
-
-            app:layout_constraintEnd_toStartOf="@+id/btn4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn1"
-            app:layout_constraintWidth_percent="0.45" />
-
-        <Button
-            android:id="@+id/btn5"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/button_rounded"
-            android:gravity="start"
-            android:text="Botón 5"
-
             app:backgroundTint="@color/white"
-            android:textColor="@color/purple_primary"
-            app:layout_constraintEnd_toStartOf="@+id/btnLogout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnRegistrarNotas"
-            app:layout_constraintWidth_percent="0.45" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Segunda columna -->
         <Button
-            android:id="@+id/btnListarEstudiantes"
-            android:layout_width="0dp"
+            android:id="@+id/btnGestionarEstudiantes"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/button_rounded"
             android:gravity="start"
-            android:text="@string/listar_estudiantes"
 
+            android:text="@string/gestionar_estudiantes"
             app:backgroundTint="@color/purple_secondary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn1"
-            app:layout_constraintTop_toTopOf="@+id/layout_menu"
-            app:layout_constraintWidth_percent="0.45" />
-
-        <Button
-            android:id="@+id/btn4"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/button_rounded"
-            android:gravity="start"
-            android:text="Botón 4"
-
-            app:backgroundTint="@color/white"
-            android:textColor="@color/purple_primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnRegistrarNotas"
-            app:layout_constraintTop_toBottomOf="@id/btnListarEstudiantes"
-            app:layout_constraintWidth_percent="0.45" />
-
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/button_rounded"
-            android:gravity="start"
-            android:text="Cerrar sesión"
-
-            app:backgroundTint="@color/purple_secondary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn5"
-            app:layout_constraintTop_toBottomOf="@id/btn4"
-            app:layout_constraintWidth_percent="0.45" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnGestionarNotas" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button_rounded"
+        android:gravity="start"
+        android:text="Cerrar sesión"
+        app:backgroundTint="@color/purple_secondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.45" />
 </androidx.constraintlayout.widget.ConstraintLayout>

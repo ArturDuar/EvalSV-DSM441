@@ -10,8 +10,13 @@
     <string name="login_frase">¿Ya tienes cuenta?</string>
     <string name="confirmar_contrasenna">Confirmar contraseña</string>
     <string name="registrar_estudiantes">Registrar estudiantes</string>
-    <string name="listar_estudiantes">Listar estudiantes</string>
-    <string name="registrar_notas">Registrar notas</string>
+    <string name="gestionar_estudiantes">Gestionar estudiantes</string>
+    <string name="gestionar_notas">Gestionar Notas</string>
+    <string name="nombre">Nombre</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="edad">Edad</string>
+    <string name="direccion">Dirección</string>
+    <string name="telefono">Teléfono</string>
 
     <string-array name="grados_array">
         <item>Seleccione un grado</item>

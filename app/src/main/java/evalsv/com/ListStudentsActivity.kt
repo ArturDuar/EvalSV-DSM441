@@ -1,5 +1,6 @@
 package evalsv.com
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -10,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -22,6 +24,8 @@ class ListStudentsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var studentList: MutableList<Estudiante>
     private lateinit var adapter: StudentAdapter
+
+    private lateinit var btnRegistrarEstudiante: FloatingActionButton
     private val databaseStudents = FirebaseDatabase.getInstance().getReference("students")
 
 
@@ -32,8 +36,14 @@ class ListStudentsActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
-            title = "Registrar Estudiante"
+            title = "Listar Estudiante"
             setDisplayHomeAsUpEnabled(true)
+        }
+
+        btnRegistrarEstudiante = findViewById(R.id.btnRegistrarEstudiante)
+        btnRegistrarEstudiante.setOnClickListener {
+            val intent = Intent(this, RegisterStudentsActivity::class.java)
+            startActivity(intent)
         }
 
         recyclerView = findViewById(R.id.recyclerViewStudents)
@@ -51,10 +61,15 @@ class ListStudentsActivity : AppCompatActivity() {
                 studentList.clear()
                 for (data in snapshot.children) {
                     val student = data.getValue(Estudiante::class.java)
-                    student?.let { studentList.add(it) }
+                    student?.let {
+                        // Asignar manualmente el ID desde la clave del nodo
+                        it.id = data.key
+                        studentList.add(it)
+                    }
                 }
                 adapter.notifyDataSetChanged()
             }
+
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@ListStudentsActivity, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
             }

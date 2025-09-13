@@ -10,9 +10,8 @@ import com.google.firebase.auth.FirebaseAuth
 class MainActivity : AppCompatActivity() {
 
     private lateinit var btnLogout: Button
-    private lateinit var btnRegistrarEstudiante: Button
-    private lateinit var btnListarEstudiantes: Button
-    private lateinit var btnRegistrarNotas: Button
+    private lateinit var btnGestionarEstudiantes: Button
+    private lateinit var btnGestionarNotas: Button
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +28,8 @@ class MainActivity : AppCompatActivity() {
 
 
         btnLogout = findViewById(R.id.btnLogout)
-        btnRegistrarEstudiante = findViewById(R.id.btn1)
-        btnListarEstudiantes = findViewById(R.id.btnListarEstudiantes)
-        btnRegistrarNotas = findViewById(R.id.btnRegistrarNotas)
+        btnGestionarEstudiantes = findViewById(R.id.btnGestionarEstudiantes)
+        btnGestionarNotas = findViewById(R.id.btnGestionarNotas)
 
         auth = FirebaseAuth.getInstance()
 
@@ -41,19 +39,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-        btnRegistrarEstudiante.setOnClickListener {
-            val intent = Intent(this, RegisterStudentsActivity::class.java)
-            startActivity(intent)
-        }
-
-        btnListarEstudiantes.setOnClickListener {
+        btnGestionarEstudiantes.setOnClickListener {
             val intent = Intent(this, ListStudentsActivity::class.java)
             startActivity(intent)
         }
-
-        btnRegistrarNotas.setOnClickListener {
-            val intent = Intent(this, RegisterGradesActivity::class.java)
+        btnGestionarNotas.setOnClickListener {
+            val intent = Intent(this, ListGradesActivity::class.java)
             startActivity(intent)
         }
 

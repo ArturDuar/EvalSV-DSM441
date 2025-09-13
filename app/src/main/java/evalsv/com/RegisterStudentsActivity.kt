@@ -63,7 +63,7 @@ class RegisterStudentsActivity : AppCompatActivity() {
         }
 
         val id = databaseStudents.push().key
-        val student = Estudiante(nombre, edad, direccion, telefono)
+        val student = Estudiante(id, nombre, edad, direccion, telefono)
 
         if (id != null) {
             databaseStudents.child(id).setValue(student)

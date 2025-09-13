@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EvalSv">
         <activity
+            android:name=".ListGradesActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterGradesActivity"
             android:exported="false" />
         <activity
