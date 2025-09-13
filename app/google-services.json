@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "103909433728",
+    "firebase_url": "https://evalsv-315e6-default-rtdb.firebaseio.com",
+    "project_id": "evalsv-315e6",
+    "storage_bucket": "evalsv-315e6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103909433728:android:5b700709814af66c956165",
+        "android_client_info": {
+          "package_name": "evalsv.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4Fj8iQhiVHWlni2qFpezCc_v9I52Q7xE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

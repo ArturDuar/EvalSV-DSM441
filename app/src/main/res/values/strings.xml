@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">EvalSv</string>
+    <string name="logo">Logo</string>
+    <string name="evalsv">EvalSV</string>
+    <string name="correo">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="iniciar_sesion">Inicia Sesión</string>
+    <string name="registrate">Regístrate</string>
+    <string name="registrarse_frase">¿No tiene cuenta?</string>
+    <string name="login_frase">¿Ya tienes cuenta?</string>
+    <string name="confirmar_contrasenna">Confirmar contraseña</string>
+</resources>
