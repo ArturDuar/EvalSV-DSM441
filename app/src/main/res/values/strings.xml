@@ -9,4 +9,24 @@
     <string name="registrarse_frase">¿No tiene cuenta?</string>
     <string name="login_frase">¿Ya tienes cuenta?</string>
     <string name="confirmar_contrasenna">Confirmar contraseña</string>
+    <string name="registrar_estudiantes">Registrar estudiantes</string>
+    <string name="listar_estudiantes">Listar estudiantes</string>
+    <string name="registrar_notas">Registrar notas</string>
+
+    <string-array name="grados_array">
+        <item>Seleccione un grado</item>
+        <item>Primero</item>
+        <item>Segundo</item>
+        <item>Tercero</item>
+        <item>Cuarto</item>
+        <item>Quinto</item>
+    </string-array>
+
+    <string-array name="materias_array">
+        <item>Seleccione una materia</item>
+        <item>Matemáticas</item>
+        <item>Lengua</item>
+        <item>Ciencias</item>
+        <item>Historia</item>
+    </string-array>
 </resources>

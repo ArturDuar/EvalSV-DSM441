@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EvalSv">
         <activity
+            android:name=".RegisterGradesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListStudentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterStudentsActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -20,14 +29,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>
