@@ -18,6 +18,8 @@
     <string name="direccion">Dirección</string>
     <string name="telefono">Teléfono</string>
     <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="no_hay_estudiantes_registrados">No hay estudiantes registrados</string>
+    <string name="no_hay_notas_registradas">No hay notas registradas</string>
 
     <string-array name="grados_array">
         <item>Seleccione un grado</item>

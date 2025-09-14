@@ -1,8 +1,11 @@
 package evalsv.com
 
 import android.content.Intent
+import android.media.tv.TvView
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +22,7 @@ import evalsv.com.models.Nota
 class ListGradesActivity : AppCompatActivity() {
 
     private lateinit var btnRegisterGrade: FloatingActionButton
+    private lateinit var tvNoData: TextView
     private lateinit var recyclerViewGrades: RecyclerView
     private lateinit var gradesAdapter: GradesAdapter
     private lateinit var dbRefGrades: DatabaseReference
@@ -46,6 +50,7 @@ class ListGradesActivity : AppCompatActivity() {
     private fun initializeViews() {
         btnRegisterGrade = findViewById(R.id.btnRegistrarNotas)
         recyclerViewGrades = findViewById(R.id.recyclerViewGrades)
+        tvNoData = findViewById(R.id.tvNoData)
     }
 
     private fun setupRecyclerView() {
@@ -71,8 +76,12 @@ class ListGradesActivity : AppCompatActivity() {
                         listaNotas.add(it)
                     }
                 }
-
                 gradesAdapter.notifyDataSetChanged()
+                if (listaNotas.isEmpty()) {
+                    tvNoData.visibility = View.VISIBLE
+                } else {
+                    tvNoData.visibility = View.GONE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

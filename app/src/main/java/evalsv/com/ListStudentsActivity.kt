@@ -3,6 +3,8 @@ package evalsv.com
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +26,7 @@ class ListStudentsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var studentList: MutableList<Estudiante>
     private lateinit var adapter: StudentAdapter
+    private lateinit var tvNoData: TextView
 
     private lateinit var btnRegistrarEstudiante: FloatingActionButton
     private val databaseStudents = FirebaseDatabase.getInstance().getReference("students")
@@ -40,11 +43,13 @@ class ListStudentsActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
         }
 
+        tvNoData = findViewById(R.id.tvNoData)
         btnRegistrarEstudiante = findViewById(R.id.btnRegistrarEstudiante)
         btnRegistrarEstudiante.setOnClickListener {
             val intent = Intent(this, RegisterStudentsActivity::class.java)
             startActivity(intent)
         }
+
 
         recyclerView = findViewById(R.id.recyclerViewStudents)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -68,6 +73,12 @@ class ListStudentsActivity : AppCompatActivity() {
                     }
                 }
                 adapter.notifyDataSetChanged()
+
+                if (studentList.isEmpty()) {
+                    tvNoData.visibility = View.VISIBLE
+                } else {
+                    tvNoData.visibility = View.GONE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
