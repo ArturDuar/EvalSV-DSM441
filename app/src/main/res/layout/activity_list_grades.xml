@@ -27,8 +27,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:layout_editor_absoluteX="28dp">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <TextView
             android:id="@+id/tvNoData"
@@ -46,13 +45,9 @@
             android:id="@+id/recyclerViewGrades"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:clipToPadding="false"
+            android:layout_weight="1"
             android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            tools:listitem="@layout/item_grade" />
+            tools:listitem="@layout/item_grade"  />
 
     </LinearLayout>
     <!-- Floating Action Button -->
