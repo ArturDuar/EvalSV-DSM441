@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Nombre con botón eliminar -->
+        <!-- Nombre con botones de acción -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,13 +33,28 @@
                 android:textStyle="bold"
                 android:textColor="@color/purple_primary" />
 
+            <!-- Botón Editar -->
+            <ImageView
+                android:id="@+id/btnEditar"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@android:drawable/ic_menu_edit"
+                android:contentDescription="Editar estudiante"
+                android:padding="4dp"
+                android:layout_marginEnd="8dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                app:tint="@color/purple_secondary" />
+
+            <!-- Botón Eliminar -->
             <ImageView
                 android:id="@+id/btnEliminar"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@android:drawable/ic_delete"
                 android:contentDescription="@string/eliminar"
-                android:padding="4dp" />
+                android:padding="4dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                app:tint="@android:color/holo_red_dark" />
         </LinearLayout>
 
         <!-- Edad -->
@@ -64,6 +79,13 @@
                 android:text="@string/edad"
                 android:textSize="14sp"
                 android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" años"
+                android:textSize="14sp"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
         <!-- Dirección -->
@@ -83,11 +105,14 @@
 
             <TextView
                 android:id="@+id/tvDireccion"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/direccion"
                 android:textSize="14sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:maxLines="2"
+                android:ellipsize="end" />
         </LinearLayout>
 
         <!-- Teléfono -->

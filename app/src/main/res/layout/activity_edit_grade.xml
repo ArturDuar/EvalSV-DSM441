@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/registerGrade"
+    android:id="@+id/editGrade"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/white_bg"
-    tools:context=".RegisterGradesActivity">
+    tools:context=".EditGradeActivity">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -41,7 +41,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registrar calificación del estudiante"
+                android:text="Editar calificación del estudiante"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/purple_primary"
@@ -118,14 +118,36 @@
                     android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Botón Registrar -->
-            <Button
-                android:id="@+id/btnRegistrarNota"
+            <!-- Botones -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registrar Nota"
-                android:backgroundTint="@color/purple_secondary"
-                android:textColor="@android:color/white" />
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <!-- Botón Cancelar -->
+                <Button
+                    android:id="@+id/btnCancelar"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="Cancelar"
+                    android:textColor="@color/purple_primary"
+                    app:strokeColor="@color/purple_primary" />
+
+                <!-- Botón Actualizar -->
+                <Button
+                    android:id="@+id/btnActualizarNota"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Actualizar Nota"
+                    android:backgroundTint="@color/purple_secondary"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

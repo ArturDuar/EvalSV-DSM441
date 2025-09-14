@@ -8,36 +8,49 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.ValueEventListener
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import evalsv.com.models.Estudiante
 import evalsv.com.models.Nota
 
-class RegisterGradesActivity : AppCompatActivity() {
+class EditGradeActivity : AppCompatActivity() {
 
     private lateinit var spinnerEstudiante: Spinner
     private lateinit var spinnerGrado: Spinner
     private lateinit var spinnerMateria: Spinner
     private lateinit var editTextNotaFinal: EditText
-    private lateinit var btnRegistrarNota: Button
+    private lateinit var btnActualizarNota: Button
+    private lateinit var btnCancelar: Button
 
     private lateinit var dbRefStudents: DatabaseReference
     private lateinit var dbRefGrades: DatabaseReference
     private val listaEstudiantes = mutableListOf<Estudiante>()
     private val nombresEstudiantes = mutableListOf<String>()
 
+    private var gradeId: String? = null
+    private var currentGrade: Nota? = null
+
+    companion object {
+        const val EXTRA_GRADE_ID = "grade_id"
+        const val EXTRA_STUDENT_ID = "student_id"
+        const val EXTRA_STUDENT_NAME = "student_name"
+        const val EXTRA_GRADE_LEVEL = "grade_level"
+        const val EXTRA_SUBJECT = "subject"
+        const val EXTRA_FINAL_GRADE = "final_grade"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register_grades)
+        setContentView(R.layout.activity_edit_grade)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
-            title = "Registrar Notas"
+            title = "Editar Nota"
             setDisplayHomeAsUpEnabled(true)
         }
 
@@ -45,7 +58,8 @@ class RegisterGradesActivity : AppCompatActivity() {
         setupFirebase()
         setupStaticSpinners()
         loadStudents()
-        setupRegisterButton()
+        loadGradeData()
+        setupUpdateButton()
     }
 
     private fun initializeViews() {
@@ -53,7 +67,12 @@ class RegisterGradesActivity : AppCompatActivity() {
         spinnerGrado = findViewById(R.id.spinnerGrado)
         spinnerMateria = findViewById(R.id.spinnerMateria)
         editTextNotaFinal = findViewById(R.id.editTextNotaFinal)
-        btnRegistrarNota = findViewById(R.id.btnRegistrarNota)
+        btnActualizarNota = findViewById(R.id.btnActualizarNota)
+        btnCancelar = findViewById(R.id.btnCancelar)
+
+        btnCancelar.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setupFirebase() {
@@ -101,6 +120,7 @@ class RegisterGradesActivity : AppCompatActivity() {
                 for (estudianteSnapshot in snapshot.children) {
                     val estudiante = estudianteSnapshot.getValue(Estudiante::class.java)
                     estudiante?.let {
+                        it.id = estudianteSnapshot.key
                         listaEstudiantes.add(it)
                         nombresEstudiantes.add("${it.nombreCompleto}")
                     }
@@ -108,29 +128,85 @@ class RegisterGradesActivity : AppCompatActivity() {
 
                 // Actualizar adapter del spinner
                 val adapterEstudiantes = ArrayAdapter(
-                    this@RegisterGradesActivity,
+                    this@EditGradeActivity,
                     android.R.layout.simple_spinner_item,
                     nombresEstudiantes
                 )
                 adapterEstudiantes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinnerEstudiante.adapter = adapterEstudiantes
+
+                // Cargar los datos de la nota después de cargar estudiantes
+                setCurrentGradeData()
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@RegisterGradesActivity,
+                Toast.makeText(this@EditGradeActivity,
                     "Error al cargar estudiantes: ${error.message}",
                     Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun setupRegisterButton() {
-        btnRegistrarNota.setOnClickListener {
-            registrarNota()
+    private fun loadGradeData() {
+        // Obtener datos del intent
+        gradeId = intent.getStringExtra(EXTRA_GRADE_ID)
+        val studentId = intent.getStringExtra(EXTRA_STUDENT_ID)
+        val studentName = intent.getStringExtra(EXTRA_STUDENT_NAME)
+        val gradeLevel = intent.getStringExtra(EXTRA_GRADE_LEVEL)
+        val subject = intent.getStringExtra(EXTRA_SUBJECT)
+        val finalGrade = intent.getDoubleExtra(EXTRA_FINAL_GRADE, 0.0)
+
+        // Crear objeto nota actual para referencia
+        currentGrade = Nota(
+            id = gradeId,
+            estudianteId = studentId,
+            nombreEstudiante = studentName,
+            grado = gradeLevel,
+            materia = subject,
+            notaFinal = finalGrade
+        )
+
+        // Establecer nota final
+        editTextNotaFinal.setText(if (finalGrade > 0.0) finalGrade.toString() else "")
+    }
+
+    private fun setCurrentGradeData() {
+        currentGrade?.let { grade ->
+            // Seleccionar estudiante
+            val studentIndex = nombresEstudiantes.indexOfFirst { name ->
+                name == grade.nombreEstudiante
+            }
+            if (studentIndex > 0) {
+                spinnerEstudiante.setSelection(studentIndex)
+            }
+
+            // Seleccionar grado
+            val gradeAdapter = spinnerGrado.adapter
+            for (i in 0 until gradeAdapter.count) {
+                if (gradeAdapter.getItem(i).toString() == grade.grado) {
+                    spinnerGrado.setSelection(i)
+                    break
+                }
+            }
+
+            // Seleccionar materia
+            val subjectAdapter = spinnerMateria.adapter
+            for (i in 0 until subjectAdapter.count) {
+                if (subjectAdapter.getItem(i).toString() == grade.materia) {
+                    spinnerMateria.setSelection(i)
+                    break
+                }
+            }
         }
     }
 
-    private fun registrarNota() {
+    private fun setupUpdateButton() {
+        btnActualizarNota.setOnClickListener {
+            actualizarNota()
+        }
+    }
+
+    private fun actualizarNota() {
         val selectedStudentPosition = spinnerEstudiante.selectedItemPosition
         val selectedGrado = spinnerGrado.selectedItem.toString()
         val selectedMateria = spinnerMateria.selectedItem.toString()
@@ -163,11 +239,17 @@ class RegisterGradesActivity : AppCompatActivity() {
             return
         }
 
+        if (gradeId == null) {
+            Toast.makeText(this, "Error: ID de la nota no válido", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         // Obtener el estudiante seleccionado
         val estudianteSeleccionado = listaEstudiantes[selectedStudentPosition - 1]
 
-        // Crear objeto Nota
-        val nota = Nota().apply {
+        // Crear objeto Nota actualizado
+        val updatedGrade = Nota().apply {
+            id = gradeId
             estudianteId = estudianteSeleccionado.id
             nombreEstudiante = "${estudianteSeleccionado.nombreCompleto}"
             grado = selectedGrado
@@ -175,26 +257,15 @@ class RegisterGradesActivity : AppCompatActivity() {
             this.notaFinal = notaFinal
         }
 
-        // Generar ID único para la nota
-        val notaId = dbRefGrades.push().key ?: return
-        nota.id = notaId
-
-        // Guardar en Firebase
-        dbRefGrades.child(notaId).setValue(nota)
+        // Actualizar en Firebase
+        dbRefGrades.child(gradeId!!).setValue(updatedGrade)
             .addOnSuccessListener {
-                Toast.makeText(this, "Nota registrada exitosamente", Toast.LENGTH_SHORT).show()
-                clearForm()
+                Toast.makeText(this, "Nota actualizada exitosamente", Toast.LENGTH_SHORT).show()
+                finish()
             }
             .addOnFailureListener { error ->
-                Toast.makeText(this, "Error al registrar la nota: ${error.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al actualizar la nota: ${error.message}", Toast.LENGTH_SHORT).show()
             }
-    }
-
-    private fun clearForm() {
-        spinnerEstudiante.setSelection(0)
-        spinnerGrado.setSelection(0)
-        spinnerMateria.setSelection(0)
-        editTextNotaFinal.text.clear()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
